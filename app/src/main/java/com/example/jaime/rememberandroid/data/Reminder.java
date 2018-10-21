@@ -11,6 +11,12 @@ public class Reminder {
     private String date;
     private String description;
 
+    public Reminder(String name, String date, String description) {
+        this.name = name;
+        this.date = date;
+        this.description = description;
+    }
+
     public int getId() {
         return id;
     }
