@@ -1,9 +1,12 @@
 package com.example.jaime.rememberandroid;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,6 +17,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.jaime.rememberandroid.adapters.ReminderAdapter;
+import com.example.jaime.rememberandroid.data.Reminder;
+import com.example.jaime.rememberandroid.viewmodels.ReminderViewModel;
+
+import java.util.List;
 
 
 public class ReminderListFragment extends Fragment {
@@ -23,6 +30,8 @@ public class ReminderListFragment extends Fragment {
 
     private String mParam1;
     private String mParam2;
+
+    private ReminderViewModel mReminderViewModel;
 
     private OnFragmentInteractionListener mListener;
 
@@ -57,6 +66,15 @@ public class ReminderListFragment extends Fragment {
         final ReminderAdapter adapter = new ReminderAdapter(this.getContext());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
+
+        mReminderViewModel = ViewModelProviders.of(this).get(ReminderViewModel.class);
+
+        mReminderViewModel.getmAllReminders().observe(this, new Observer<List<Reminder>>() {
+            @Override
+            public void onChanged(@Nullable List<Reminder> reminders) {
+                adapter.setReminders(reminders);
+            }
+        });
 
         FloatingActionButton btnAddReminder = v.findViewById(R.id.fButtonAddReminder);
 

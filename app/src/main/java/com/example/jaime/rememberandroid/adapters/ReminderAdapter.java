@@ -52,7 +52,7 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.Remind
         }
     }
 
-    void setReminders(List<Reminder> reminders) {
+    public void setReminders(List<Reminder> reminders) {
         mRemindersList = reminders;
         notifyDataSetChanged();
     }
