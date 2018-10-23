@@ -47,10 +47,27 @@ public class ReminderRepository {
 
         editAsyncTask(ReminderDao dao) {this.mAsyncTaskDao = dao;}
 
-
         @Override
         protected Void doInBackground(final Reminder... params) {
             mAsyncTaskDao.updateReminder(params[0]);
+            return null;
+        }
+    }
+
+    public void deleteReminder(Reminder reminder) {
+        new deleteAsyncTask(mReminderDao).execute(reminder);
+    }
+
+    private static class deleteAsyncTask extends AsyncTask<Reminder, Void, Void> {
+        private ReminderDao mAsyncTaskDao;
+
+        deleteAsyncTask(ReminderDao dao) {
+            this.mAsyncTaskDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(Reminder... params) {
+            mAsyncTaskDao.deleteReminder(params[0]);
             return null;
         }
     }
