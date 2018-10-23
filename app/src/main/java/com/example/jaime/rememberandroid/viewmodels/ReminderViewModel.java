@@ -23,4 +23,8 @@ public class ReminderViewModel extends AndroidViewModel {
     public LiveData<List<Reminder>> getmAllReminders() {return mAllReminders;}
 
     public void insert(Reminder reminder) {mReminderRepository.insertReminder(reminder);}
+
+    public void edit(Reminder reminder) {mReminderRepository.editReminder(reminder);}
+
+    public void delete(Reminder reminder) {mReminderRepository.deleteReminder(reminder);}
 }
