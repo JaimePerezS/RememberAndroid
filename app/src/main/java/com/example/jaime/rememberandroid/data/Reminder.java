@@ -2,9 +2,11 @@ package com.example.jaime.rememberandroid.data;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 @Entity(tableName = "reminders")
-public class Reminder {
+public class Reminder implements Parcelable {
     @PrimaryKey(autoGenerate = true)
     private int id;
     private String name;
@@ -15,6 +17,13 @@ public class Reminder {
         this.name = name;
         this.date = date;
         this.description = description;
+    }
+
+    protected Reminder(Parcel in) {
+        id = in.readInt();
+        name = in.readString();
+        date = in.readString();
+        description = in.readString();
     }
 
     public int getId() {
@@ -47,5 +56,30 @@ public class Reminder {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public static final Creator<Reminder> CREATOR = new Creator<Reminder>() {
+        @Override
+        public Reminder createFromParcel(Parcel in) {
+            return new Reminder(in);
+        }
+
+        @Override
+        public Reminder[] newArray(int size) {
+            return new Reminder[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(name);
+        dest.writeString(date);
+        dest.writeString(description);
     }
 }

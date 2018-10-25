@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -26,34 +27,11 @@ import java.util.List;
 
 public class ReminderListFragment extends Fragment {
 
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    private String mParam1;
-    private String mParam2;
 
     private ReminderViewModel mReminderViewModel;
 
     public ReminderListFragment() {
         // Required empty public constructor
-    }
-
-    public static ReminderListFragment newInstance(String param1, String param2) {
-        ReminderListFragment fragment = new ReminderListFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -62,7 +40,16 @@ public class ReminderListFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_reminder_list, container, false);
 
         RecyclerView recyclerView = v.findViewById(R.id.rcViewReminderList);
-        final ReminderAdapter adapter = new ReminderAdapter(this.getContext());
+        final ReminderAdapter adapter = new ReminderAdapter(this.getContext(), new ReminderAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Reminder reminder) {
+                Fragment detailFragment = ReminderDetailFragment.newInstance(reminder);
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.fragment, detailFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
 

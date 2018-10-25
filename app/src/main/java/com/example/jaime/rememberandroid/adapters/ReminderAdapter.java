@@ -24,13 +24,24 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.Remind
             txtViewName = v.findViewById(R.id.txtViewName);
             txtViewDate = v.findViewById(R.id.txtViewDate);
         }
+
+        public void bind(final Reminder currentReminder, final OnItemClickListener listener) {
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.onItemClick(currentReminder);
+                }
+            });
+        }
     }
 
     private final LayoutInflater mInflater;
     private List<Reminder> mRemindersList;
+    private final OnItemClickListener listener;
 
-    public ReminderAdapter(Context context) {
+    public ReminderAdapter(Context context, OnItemClickListener listener) {
         mInflater = LayoutInflater.from(context);
+        this.listener = listener;
     }
 
     @NonNull
@@ -44,6 +55,7 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.Remind
     public void onBindViewHolder(@NonNull ReminderViewHolder holder, int position) {
         if(mRemindersList != null) {
             Reminder currentReminder = mRemindersList.get(position);
+            holder.bind(currentReminder, listener);
             holder.txtViewName.setText(currentReminder.getName());
             holder.txtViewDate.setText(currentReminder.getDate());
         } else {
@@ -64,5 +76,9 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.Remind
         } else {
             return 0;
         }
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(Reminder reminder);
     }
 }
