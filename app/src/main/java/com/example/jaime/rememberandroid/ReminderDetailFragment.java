@@ -7,6 +7,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.example.jaime.rememberandroid.data.Reminder;
 
@@ -40,7 +42,16 @@ public class ReminderDetailFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_reminder_detail, container, false);
+        View v = inflater.inflate(R.layout.fragment_reminder_detail, container, false);
+
+        final TextView txtViewReminderNameDetail = v.findViewById(R.id.txtViewReminderNameDetail);
+        final TextView txtViewReminderDateDetail = v.findViewById(R.id.txtViewReminderDateDetail);
+        final TextView txtViewReminderDescriptionDetail = v.findViewById(R.id.txtViewReminderDescriptionDetail);
+
+        txtViewReminderNameDetail.setText(mReminder.getName());
+        txtViewReminderDateDetail.setText(mReminder.getDate());
+        txtViewReminderDescriptionDetail.setText(mReminder.getDescription());
+
+        return v;
     }
 }
