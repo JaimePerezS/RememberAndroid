@@ -1,8 +1,10 @@
 package com.example.jaime.rememberandroid;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,9 +50,21 @@ public class ReminderDetailFragment extends Fragment {
         final TextView txtViewReminderDateDetail = v.findViewById(R.id.txtViewReminderDateDetail);
         final TextView txtViewReminderDescriptionDetail = v.findViewById(R.id.txtViewReminderDescriptionDetail);
 
+
+        final FloatingActionButton btnEditReminder = v.findViewById(R.id.fButtonEditReminder);
+
         txtViewReminderNameDetail.setText(mReminder.getName());
         txtViewReminderDateDetail.setText(mReminder.getDate());
         txtViewReminderDescriptionDetail.setText(mReminder.getDescription());
+
+        btnEditReminder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), EditReminderActivity.class);
+                intent.putExtra("REMINDER_INFO", mReminder);
+                startActivity(intent);
+            }
+        });
 
         return v;
     }
