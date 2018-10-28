@@ -14,6 +14,8 @@ import android.widget.TextView;
 
 import com.example.jaime.rememberandroid.data.Reminder;
 
+import static android.app.Activity.RESULT_OK;
+
 
 public class ReminderDetailFragment extends Fragment {
 
@@ -62,7 +64,7 @@ public class ReminderDetailFragment extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), EditReminderActivity.class);
                 intent.putExtra("REMINDER_INFO", mReminder);
-                startActivity(intent);
+                getActivity().startActivityForResult(intent, 1);
             }
         });
 

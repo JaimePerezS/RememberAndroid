@@ -17,11 +17,11 @@ public interface ReminderDao {
     LiveData<List<Reminder>> getReminders();
 
     @Insert(onConflict = REPLACE)
-    void saveReminder(Reminder reminder);
+    void saveReminder(Reminder... reminder);
 
     @Update
-    void updateReminder(Reminder reminder);
+    void updateReminder(Reminder... reminder);
 
     @Delete
-    void deleteReminder(Reminder reminder);
+    void deleteReminder(Reminder... reminder);
 }

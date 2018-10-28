@@ -1,6 +1,7 @@
 package com.example.jaime.rememberandroid.data;
 
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -13,7 +14,15 @@ public class Reminder implements Parcelable {
     private String date;
     private String description;
 
+    @Ignore
     public Reminder(String name, String date, String description) {
+        this.name = name;
+        this.date = date;
+        this.description = description;
+    }
+
+    public Reminder (int id, String name, String date, String description) {
+        this.id = id;
         this.name = name;
         this.date = date;
         this.description = description;
