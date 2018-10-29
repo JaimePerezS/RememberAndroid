@@ -68,6 +68,7 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.Remind
         if(mRemindersList != null) {
             Reminder currentReminder = mRemindersList.get(position);
             holder.bind(currentReminder, listener);
+            holder.bindLongClickLisener(currentReminder, longListener);
             holder.txtViewName.setText(currentReminder.getName());
             holder.txtViewDate.setText(currentReminder.getDate());
         } else {
