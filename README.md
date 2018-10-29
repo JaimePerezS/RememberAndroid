@@ -7,6 +7,7 @@ This application allows you to manage reminders.
  
 ### Features Developed:
 - Insert reminder.
+- Edit reminder.
 - See reminders created.
 
 ### Future Features:
