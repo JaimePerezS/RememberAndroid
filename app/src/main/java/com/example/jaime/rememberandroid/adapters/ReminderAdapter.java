@@ -33,15 +33,27 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.Remind
                 }
             });
         }
+
+        public void bindLongClickLisener(final Reminder currentReminder, final OnItemLongClickListener longClickListener) {
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    longClickListener.onItemLongClicked(currentReminder);
+                    return true;
+                }
+            });
+        }
     }
 
     private final LayoutInflater mInflater;
     private List<Reminder> mRemindersList;
     private final OnItemClickListener listener;
+    private final OnItemLongClickListener longListener;
 
-    public ReminderAdapter(Context context, OnItemClickListener listener) {
+    public ReminderAdapter(Context context, OnItemClickListener listener, OnItemLongClickListener longListener) {
         mInflater = LayoutInflater.from(context);
         this.listener = listener;
+        this.longListener = longListener;
     }
 
     @NonNull
@@ -80,5 +92,9 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.Remind
 
     public interface OnItemClickListener {
         void onItemClick(Reminder reminder);
+    }
+
+    public interface OnItemLongClickListener {
+        void onItemLongClicked(Reminder reminder);
     }
 }
