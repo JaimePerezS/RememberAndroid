@@ -7,13 +7,11 @@ This application allows you to manage reminders.
  
 ### Features Developed:
 - Insert reminder.
+- Edit reminder.
 - See reminders created.
 
 ### Future Features:
-- See reminder details.
-- Edit reminder.
 - Delete reminder.
-- Responsive design for tablet.
 
 ### Android Jetpack components:
 - Lifecycles.
