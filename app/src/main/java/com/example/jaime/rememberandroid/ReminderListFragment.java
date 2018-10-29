@@ -13,6 +13,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,6 +49,11 @@ public class ReminderListFragment extends Fragment {
                 transaction.replace(R.id.fragment, detailFragment);
                 transaction.addToBackStack(null);
                 transaction.commit();
+            }
+        }, new ReminderAdapter.OnItemLongClickListener() {
+            @Override
+            public void onItemLongClicked(Reminder reminder) {
+                
             }
         });
         recyclerView.setAdapter(adapter);
